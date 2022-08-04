@@ -12,4 +12,13 @@ class Album extends Model
         'photographer_id',
         'album_name'
     ];
+
+    public function photographer()
+    {
+        return $this->belongsTo('App\Models\Photographer');
+    }
+    public function photos()
+    {
+        return $this->hasMany('\App\Models\Photo');
+    }
 }

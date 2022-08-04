@@ -17,4 +17,9 @@ class Photo extends Model
         'date',
         'featured',
     ];
+
+    public function album()
+    {
+        return $this->belongsTo('App\Models\Album');
+    }
 }

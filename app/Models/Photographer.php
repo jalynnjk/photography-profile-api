@@ -14,4 +14,9 @@ class Photographer extends Model
         'email',
         'bio',
     ];
+
+    public function albums()
+    {
+        return $this->hasMany('App\Models\Album');
+    }
 }
