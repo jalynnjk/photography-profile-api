@@ -23,7 +23,8 @@ class PhotographerController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'bio' => 'required'
+            'bio' => 'required',
+            'profile_picture' => 'required'
         ]);
         // Try to create new photographer
         try {
@@ -32,7 +33,8 @@ class PhotographerController extends Controller
                 'name' => $request->get('name'),
                 'phone' => $request->get('phone'),
                 'email' => $request->get('email'),
-                'bio' => $request->get('bio')
+                'bio' => $request->get('bio'),
+                'profile_picture' => $request->get('profile_picture')
             ]);
             // Save new photographer
             $newPhotographer->save();
@@ -62,7 +64,8 @@ class PhotographerController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'email' => 'required',
-            'bio' => 'required'
+            'bio' => 'required',
+            'profile_picture' => 'required'
         ]);
         // Get photographer to update
         $photographer = Photographer::findOrFail($id);
@@ -71,6 +74,7 @@ class PhotographerController extends Controller
         $photographer->phone = $request->get('phone');
         $photographer->email = $request->get('email');
         $photographer->bio = $request->get('bio');
+        $photographer->profile_picture = $request->get('profile_picture');
         // Save changes
         $photographer->save();
         // Return updated photographer

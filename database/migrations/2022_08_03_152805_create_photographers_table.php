@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('email')->unique();
             $table->text('bio');
+            $table->string('profile_picture');
 
 
         });

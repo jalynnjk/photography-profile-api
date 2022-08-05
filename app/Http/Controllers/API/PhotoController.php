@@ -66,6 +66,7 @@ class PhotoController extends Controller
         $photo->description = $request->get('description');
         $photo->img = $request->get('img');
         $photo->date = $request->get('date');
+        $photo->featured = $request->get('featured');
         // Save updated photo
         $photo->save();
         // Return updated photo

@@ -13,6 +13,7 @@ class Photographer extends Model
         'phone',
         'email',
         'bio',
+        'profile_picture'
     ];
 
     public function albums()
