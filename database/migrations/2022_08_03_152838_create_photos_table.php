@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
+            $table->integer('album_id')->unsigned();
             $table->timestamps();
-            $table->integer('album_id');
             $table->string('title');
             $table->text('description');
             $table->string('img');
             $table->date('date');
             $table->boolean('featured')->default(false);
+            $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
         });
     }
 

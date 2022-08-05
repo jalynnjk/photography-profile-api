@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('albums', function (Blueprint $table) {
             $table->id();
+            $table->integer('photographer_id')->unsigned();
             $table->timestamps();
-            $table->integer('photographer_id');
             $table->string('album_name');
+            $table->foreign('photographer_id')->references('id')->on('photographers')->onDelete('cascade');
         });
     }
 
