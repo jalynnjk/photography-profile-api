@@ -5,14 +5,16 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Photographer;
+use App\Models\Album;
+use App\Http\Resources\PhotographerResource;
 
 class PhotographerController extends Controller
 {
     // Get all photographers
     public function index()
     {
-        $photographers = Photographer::all();
-        return response()->json($photographers);
+        $photographers = Photographer::with(['albums.photos']);
+        return PhotographerResource::collection($photographers->paginate(perPage: 50))->response();
     }
 
     // Create a new photographer
@@ -38,7 +40,7 @@ class PhotographerController extends Controller
             ]);
             // Save new photographer
             $newPhotographer->save();
-            // Return nrew photographer
+            // Return new photographer
             return response()->json($newPhotographer);
         // Error handling if create new photographer fails
         } catch(\Exception $error) {
@@ -52,8 +54,8 @@ class PhotographerController extends Controller
     // Get photographer by id
     public function show($id)
     {
-        $photographer = Photographer::findOrFail($id);
-        return response()->json($photographer);
+         $photographer = Photographer::findOrFail($id)::with(['albums.photos']);
+        return PhotographerResource::collection($photographer->paginate(perPage: 1))->response();
     }
 
     // Update specific photographer

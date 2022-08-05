@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Album;
+use App\Http\Resources\AlbumResource;
 
 
 class AlbumController extends Controller
@@ -12,8 +13,8 @@ class AlbumController extends Controller
     // Get all albums
     public function index()
     {
-        $albums = Album::all();
-        return response()->json($albums);
+        $albums = Album::with(['photos']);
+        return AlbumResource::collection($albums->paginate(perPage:50))->response();
     }
 
     // Create a new album
@@ -35,11 +36,12 @@ class AlbumController extends Controller
         return response()->json($newAlbum);
     }
 
-    // Get specific album by id
-    public function show($id)
+    // Get albums belonging to specific photographer
+    public function show(Request $request)
     {
-        $album = Album::findOrFail($id);
-        return response()->json($album);
+        $photographer_id = $request->get('photographer_id');
+        $albums = Album::all()->where("photographer_id", $photographer_id);
+        return response()->json($albums);
     }
 
     // Update specific album
