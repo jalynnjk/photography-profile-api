@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Storage;
 
 class PhotoResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class PhotoResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'img' => $this->img,
+            'img' => Storage::disk('s3')->url($this->img),
             'date' => $this->date,
             'featured' =>  $this->featured,
         ];
